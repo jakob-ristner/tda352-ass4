@@ -1,7 +1,7 @@
 import qualified Data.ByteString as B (unpack, pack)
 import qualified Data.ByteString.Char8 as BC (pack, unpack)
 import Data.Word (Word8)
-import Data.Bits
+import Data.Bits (xor) -- imported for bitwise xor
 
 unHex :: String -> [Word8]
 unHex [] = []
