@@ -5,6 +5,12 @@ module Main where
 
 import CryptoLib
 
+orderedEEA :: (Int, Int) -> (Int, Int, Int)
+orderedEEA (a, b) =
+      let (gcd, s, t) = eea (a, b)
+          (s', t') = (max s t, min s t)
+      in  if a == b then (gcd, s', t') else (gcd, s, t)
+
 main = do
   test_eea
   test_modExp
@@ -23,12 +29,7 @@ test_eea = do
                 , ((42, 25), (1, 3, -5))
                 , ((150, 340), (10, -9, 4))
                 ]
-    testit (tests) (orderedEEA) ("eea") (==)
-  where
-    orderedEEA a b =
-      let (gcd, s, t) = eea (a, b)
-          (s', t') = (max s t, min s t)
-      in  if a == b then (gcd, s', t') else (gcd, s, t)
+    testit tests orderedEEA "eea" (==)
   
 test_modExp :: IO ()
 test_modExp = do

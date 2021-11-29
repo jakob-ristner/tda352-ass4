@@ -33,11 +33,11 @@ modInv (n, m) | g /= 1 = 0 -- no modular inverse exists
 -- | Returns 0 if n is a Fermat Prime, otherwise it returns the lowest
 -- Fermat Witness. Tests values from 2 (inclusive) to n/3 (exclusive).
 fermatPT :: Int -> Int
-fermatPT n = ft n (div n 3)
+fermatPT n = ft n 2
 
 ft :: Int -> Int -> Int
-ft n 1 = 0
-ft n k | modExp (n, k, n-1) == 1 = ft n (k - 1)
+ft n k | modExp (n, k, n-1) == 1 = ft n (k + 1)
+       | k >= (div n 3) = 0
        | otherwise = k
 
  
